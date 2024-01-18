@@ -1,5 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['tarefas'])) {
+    $_SESSION['tarefas'] = array();
+} ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -41,15 +47,14 @@
         </div>
         <div class="separator">
 
-            _GET
         </div>
         <div class="lista-tarefas">
             <?php
             if (isset($_SESSION['tarefas'])) {
                 echo "<ul>";
                 foreach ($_SESSION['tarefas'] as $key => $tarefa) {
-                    echo ("<li> <span>" . $tarefa['nome_tarefa'] . "</span>
-                    <button type='button' class='btn-limpar' onclick='remover$key()' >Remover</button>
+                    echo ("<li> <a href=''details.php?key=$key>" . $tarefa['nome_tarefa'] . "</a>
+                    <button type='button' class='btn-remover' onclick='remover$key()' >Remover</button>
                     <script> 
                         function remover$key(){
                             if (confirm('Confirmar remoçao?')){

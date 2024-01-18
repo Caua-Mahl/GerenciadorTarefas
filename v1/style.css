@@ -1,5 +1,5 @@
-*\font-family: "Itim", cursive;
-*/ * {
+*\font-family"Itim", cursive;*/ 
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -24,7 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 4px;
-  margin-bottom: 4px];
+  margin-bottom: 4px;
 }
 
 form {
@@ -101,18 +101,79 @@ form {
 }
 
 .footer p {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
 }
- .btn-limpar {
-    background-color: rgb(143, 109, 37);
-    height: 32px;
-    border: none;
-    border-radius: 4px;
-    color: rgb(196, 196, 196);
-    padding: 0 12px;
-    transition: background 0.3s;
+.btn-limpar {
+  background-color: rgb(143, 109, 37);
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  color: rgb(196, 196, 196);
+  padding: 0 12px;
+  transition: background 0.3s;
+}
+.btn-limpar:hover {
+  background-color: #555417;
+}
 
-  }
-  .btn-limpar:hover {
-    background-color: #555417;
+a {
+  text-decoration: none;
+  color: #555417;
+}
+a:link {
+  text-decoration: none;
+}
+a:visit {
+  text-decoration: none;
+}
+a:hover {
+  font-weight: bold;
+}
+.details-container {
+  background: blueviolet;
+  max-width: 700px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+.details{
+  width: 300px;
+  border: 1px solid blanchedalmond;
+  border-radius: 4px;
+  margin-right: 8px;
+  margin-left: 8px;
+
+  padding: 16px;
+}
+.details dt dl {
+margin-top: 4px;
+margin-bottom: 4px;
+font-weight: bold;
+color: #6666;
+}
+.details dl dd {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  color: #999;
+}
+.image {
+  width: 400px;
+  border: 1px solid #f0f0f5;
+  border-radius: 4px;
+  margin-right: 8px;
+  margin-left: 8px;
+
+  padding: 16px;
+}
+
+.imagem img {
+  max-width: 100%;
+  height: auto;
+} 
