@@ -1,0 +1,118 @@
+*\font-family: "Itim", cursive;
+*/ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(111, 235, 97);
+  color: rgb(69, 66, 62);
+}
+.container {
+  background: #e73131c8;
+
+  max-width: 450px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 4px];
+}
+
+form {
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.form form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.form label {
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.form input {
+  height: 32px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-left: 12px;
+  border-radius: 4px;
+  border: 1px solid #38195d;
+}
+.form input:focus {
+  background-color: rgb(196, 196, 196);
+}
+.form button {
+  background-color: rgb(75, 75, 225);
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  color: rgb(196, 196, 196);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.form button:hover {
+  background-color: #38195d;
+}
+.separator {
+  background-color: aqua;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.lista-tarefas {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.lista-tarefas ul {
+  list-style: none;
+}
+.lista-tarefas ul li {
+  background: grey;
+  height: 3px;
+  border-radius: 4px;
+  color: #fff;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 12px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  transition: background 0.3s;
+}
+.lista-tarefas ul li:hover {
+  background: rgb(81, 80, 80);
+}
+.footer {
+  background: #ffffff13;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.footer p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.72);
+}
+ .btn-limpar {
+    background-color: rgb(143, 109, 37);
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    color: rgb(196, 196, 196);
+    padding: 0 12px;
+    transition: background 0.3s;
+
+  }
+  .btn-limpar:hover {
+    background-color: #555417;
