@@ -1,0 +1,10 @@
+CREATE TABLE tarefas (
+	id int not null AUTO_INCREMENT PRIMARY KEY,
+    nome_tarefa varchar(190),
+    desc_tarefa varchar(250),
+    imagem_tarefa varchar(50),
+    data_tarefa date
+)
+
+INSERT INTO `tarefas` (`id`, `nome_tarefa`, `desc_tarefa`, `imagem_tarefa`, `data_tarefa`) VALUES (NULL, 'teste', 'teste de descrição', NULL, '2024-01-09'), (NULL, 'teste1', 'teste111111111', NULL, '2024-01-31');
+

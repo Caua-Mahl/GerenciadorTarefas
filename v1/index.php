@@ -1,8 +1,16 @@
 <?php
+require __DIR__ ."\connection.php";
 session_start();
 if (!isset($_SESSION['tarefas'])) {
     $_SESSION['tarefas'] = array();
-} ?>
+}
+
+$stmt = $conn->prepare("SELECT * FROM tarefas");
+$stmt->execute();
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,12 +27,40 @@ if (!isset($_SESSION['tarefas'])) {
 
 <body>
     <div class="container">
+    <?php 
+if(isset($_SESSION['sucess'])){
+?>
+    <div class="alert-sucess">
+        <?php 
+            echo $_SESSION['sucess'];
+        ?>
+    </div>
+    <?php 
+        unset($_SESSION['sucess']);
+    }
+?>
+
+<?php
+if(isset($_SESSION['error'])){
+?>
+    <div class="alert-error">
+        <?php 
+            echo $_SESSION['error'];
+        ?>
+    </div>
+    <?php 
+        unset($_SESSION['error']);
+    }
+?>
+
+        
+        
         <div class="header">
             <h1>Gerenciador de tarefas</h1>
 
         </div>
         <div class="form">
-            <form action="tarefas.php" method="post" enctype="multipart/form-data">
+            <form action="tarefa.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="insert" value="insert">
                 <label for="nome_tarefa">Tarefa:</label>
                 <input type="text" name="nome_tarefa" placeholder="Nome da Tarefa">
@@ -40,7 +76,7 @@ if (!isset($_SESSION['tarefas'])) {
             </form>
             <?php
             if (isset($_SESSION['message'])) {
-                echo "<p style=' color: #black;'>" . $_SESSION['message'] . "</p>";
+                echo "<p style='color: #black';>" . $_SESSION['message'] . "</p>";
                 unset($_SESSION['message']);
             }
             ?>
@@ -50,25 +86,24 @@ if (!isset($_SESSION['tarefas'])) {
         </div>
         <div class="lista-tarefas">
             <?php
-            if (isset($_SESSION['tarefas'])) {
                 echo "<ul>";
-                foreach ($_SESSION['tarefas'] as $key => $tarefa) {
-                    echo ("<li> <a href=''details.php?key=$key>" . $tarefa['nome_tarefa'] . "</a>
-                    <button type='button' class='btn-remover' onclick='remover$key()' >Remover</button>
+                foreach ($stmt->fetchAll() as $tarefa) {
+                    echo ("<li> <a href='details.php?key=" . $tarefa['id'] ."'>" . $tarefa['nome_tarefa'] . "</a>
+                    <button type='button' class='btn-remover' onclick='remover".$tarefa['id']."()' >Remover</button>
                     <script> 
-                        function remover$key(){
-                            if (confirm('Confirmar remoçao?')){
-                                windown.location = 'http://localhost:8080/CursoPhp/GerenciadorTarefas/v1/tarefas.php?key=$key';
-                            }
+                    function remover". $tarefa['id']. "(){
+                        if (confirm('Confirmar remoçao?')){
+                            window.location = 'http://localhost/Cursophp/GerenciadorTarefas/v1/index.php?key=".$tarefa['id']."';
                         }
+                        return false;
+                    }
                     </script>
                     </li>");
                 };
                 echo "<ul>";
-            }
             ?>
 
-            <form action="tarefas.php" method="get">
+            <form action="tarefa.php" method="get">
                 <input type="hidden" name="limpar" value="limpar">
                 <button class="btn-limpar" type="submit">Limpar tarefas</button>
 
@@ -93,5 +128,4 @@ if (!isset($_SESSION['tarefas'])) {
 
     ?>
 </body>
-
 </html>

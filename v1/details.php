@@ -1,6 +1,11 @@
 <?php 
+require __DIR__ .'/connection.php';
 session_start();
-$data = $_SESSION['tarefas'][$_GET['key']];
+$stmt = $conn->prepare("SELECT * FROM tarefas WHERE id= :id");
+$stmt->bindParam(':id', $_GET['key']);
+$stmt->execute();
+$dados = $stmt->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

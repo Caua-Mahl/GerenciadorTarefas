@@ -1,4 +1,4 @@
-*\font-family"Itim", cursive;*/ 
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +11,6 @@ body {
 }
 .container {
   background: #e73131c8;
-
   max-width: 450px;
   margin-top: 5%;
   margin-left: auto;
@@ -177,3 +176,15 @@ color: #6666;
   max-width: 100%;
   height: auto;
 } 
+.alert-sucess {
+  background: rgb(30, 110, 27)727;
+  margin: 4px;
+  padding: 17px;
+  color: #d6d6ce;
+}
+.alert-error {
+  background: #ac0a0a;
+  margin: 4px;
+  padding: 17px;
+  color: #d6d6ce;
+}
