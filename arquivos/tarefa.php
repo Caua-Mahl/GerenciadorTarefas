@@ -1,7 +1,8 @@
 <?php
 require __DIR__ . '/connection.php';
-
+error_reporting(E_ALL & ~E_WARNING);
 session_start();
+
 if (isset($_POST['nome_tarefa'])) {
     if ($_POST['nome_tarefa'] != "") {
         if($_FILES['imagem_tarefa']){
@@ -12,7 +13,7 @@ if (isset($_POST['nome_tarefa'])) {
         }
       
         $stmt = $conn->prepare('INSERT INTO tarefas(nome_tarefa,desc_tarefa,imagem_tarefa,data_tarefa)
-        VALUES (:nome, :desc,:imagem,:data)');
+        VALUES (:nome, :desc,:imagem,:data);');
 
         $stmt->bindParam('nome',$_POST['nome_tarefa']);
         $stmt->bindParam('desc',$_POST['desc_tarefa']);
@@ -21,41 +22,46 @@ if (isset($_POST['nome_tarefa'])) {
 
         if($stmt->execute()){
             $_SESSION['sucess']="Dados Cadastrados";
-            header('Location:index.php');
         } else {
-            $_SESSION['error']="Dados Não Cadastrados";
-            header('Location:index.php');
+            $_SESSION['error']="Dados Não Cadastrados";    
         }
-        
 
-
-    } else {
+    } /*else {
         $_SESSION['message'] = "o campo Nome da Tarefa precisa ser preenchido!";
-        header('Location:index.php');
 
-    };
+
+    };*/
+    header('Location:index.php');
 }
 if (isset($_GET['limpar'])) {
-    unset($_SESSION['tarefas']);
-    unset($_GET['limpar']);
-    header('Location:index.php');
+    $stmt = $conn->prepare('SELECT id FROM tarefas');
+    $stmt->execute();
 
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $id = $row['id'];
+        $deleteStmt = $conn->prepare('DELETE FROM tarefas WHERE id= :id');
+        $deleteStmt->bindParam(':id', $id);
+
+        if($deleteStmt->execute()){
+            $_SESSION['success']="Dados removidos";
+        } else {
+            $_SESSION['error']="Dados Não removidos";
+        }
+    }
+    header('Location:index.php');
 }
-if (isset($_GET['key'])) {
+if (isset($_GET['id'])) {
     $stmt =$conn->prepare('DELETE FROM tarefas WHERE id= :id');
-    $stmt->bindParam(':id', $_GET['key']);
+    $stmt->bindParam(':id', $_GET['id']);
 
     if($stmt->execute()){
         $_SESSION['sucess']="Dados removidos";
-        header('Location:index.php');
     } else {
         $_SESSION['error']="Dados Não removidos";
-        header('Location:index.php');
     }
-} else {
+} /*else {
     $_SESSION['message'] = "o campo Nome da Tarefa precisa ser preenchido!";
-    header('Location:index.php');
-}
+}*/
 
 
 ?>

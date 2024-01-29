@@ -1,14 +1,12 @@
 <?php
 require __DIR__ ."\connection.php";
 session_start();
-if (!isset($_SESSION['tarefas'])) {
-    $_SESSION['tarefas'] = array();
-}
 
 $stmt = $conn->prepare("SELECT * FROM tarefas");
 $stmt->execute();
 $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
+$dados = $stmt->fetchAll();
 
 ?>
 
@@ -69,7 +67,7 @@ if(isset($_SESSION['error'])){
                 <label for="data_tarefa">Data:</label>
                 <input type="date" name="data_tarefa" placeholder="Nome da Tarefa">
                 <label for="imagem_tarefa">Imagem</label>
-                <input type="file" name="tarefa_imagem" id="">
+                <input type="file" name="imagem_tarefa" id="">
                 <button type="submit">Cadastrar</button>
 
 
@@ -87,13 +85,13 @@ if(isset($_SESSION['error'])){
         <div class="lista-tarefas">
             <?php
                 echo "<ul>";
-                foreach ($stmt->fetchAll() as $tarefa) {
-                    echo ("<li> <a href='details.php?key=" . $tarefa['id'] ."'>" . $tarefa['nome_tarefa'] . "</a>
+                foreach ($dados as $tarefa) {
+                    echo ("<li> <a href='details.php?id=" . $tarefa['id'] ."'>" . $tarefa['nome_tarefa'] . "</a>
                     <button type='button' class='btn-remover' onclick='remover".$tarefa['id']."()' >Remover</button>
                     <script> 
                     function remover". $tarefa['id']. "(){
                         if (confirm('Confirmar remoçao?')){
-                            window.location = 'http://localhost/Cursophp/GerenciadorTarefas/v1/index.php?key=".$tarefa['id']."';
+                            window.location.href = '?id=".$tarefa['id']."';
                         }
                         return false;
                     }
@@ -101,6 +99,18 @@ if(isset($_SESSION['error'])){
                     </li>");
                 };
                 echo "<ul>";
+                
+                if (isset($_GET['id'])) {
+                    $stmt =$conn->prepare('DELETE FROM tarefas WHERE id= :id');
+                    $stmt->bindParam(':id', $_GET['id']);
+                
+                    if($stmt->execute()){
+                        $_SESSION['sucess']="Dados removidos";
+                    } else {
+                        $_SESSION['error']="Dados Não removidos";
+                    }
+                }
+                
             ?>
 
             <form action="tarefa.php" method="get">
@@ -108,24 +118,12 @@ if(isset($_SESSION['error'])){
                 <button class="btn-limpar" type="submit">Limpar tarefas</button>
 
             </form>
-
-
-
         </div>
         <div class="footer">
             <p> Desenvolvido por Caua Mahl</p>
-
-
         </div>
-
-
-
-
     </div>
-
     <?php
-
-
     ?>
 </body>
 </html>

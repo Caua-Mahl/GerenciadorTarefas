@@ -2,10 +2,11 @@
 require __DIR__ .'/connection.php';
 session_start();
 $stmt = $conn->prepare("SELECT * FROM tarefas WHERE id= :id");
-$stmt->bindParam(':id', $_GET['key']);
+$stmt->bindParam('id', $_GET['id']);
 $stmt->execute();
-$dados = $stmt->fetchAll();
-
+$stmt->setFetchMode(PDO::FETCH_ASSOC);
+$dados= $stmt->fetchAll();
+error_reporting(E_ALL & ~E_WARNING);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,7 +25,7 @@ $dados = $stmt->fetchAll();
         <div class="header">
             <h1>
                 <?php 
-                    echo $dados['nome_tarefa'];
+                    echo $dados[0]['nome_tarefa'];
             
                 ?>
 
@@ -37,7 +38,7 @@ $dados = $stmt->fetchAll();
                     </dt>
                     <dd>
                         <?php 
-                            echo $dados['desc_tarefa']
+                            echo $dados[0]['desc_tarefa']
                         ?>
                     </dd>
                 </dl>
@@ -46,19 +47,17 @@ $dados = $stmt->fetchAll();
                     </dt>
                     <dd>
                         <?php 
-                            echo $dados['data_tarefa']
+                            echo $dados[0]['data_tarefa']
                         ?></dd>
                 </dl>
 
             </div>
             <div class="imagem">
-                <img src="uploads/<?php echo $dados['imagem_tarefa']?>" alt="imagem da tarefa">
+                <img src="uploads/<?php echo $dados[0]['imagem_tarefa']?>" alt="imagem da tarefa">
             </div>
         </div>
         <div class="footer">
             <p> Desenvolvido por Caua Mahl</p>
-
-
         </div>
 
     </div>
